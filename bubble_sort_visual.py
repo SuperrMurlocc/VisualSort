@@ -59,7 +59,7 @@ def main():
                     run = False
                 if event.key == pygame.K_s:
                     if finished != True:
-                        started = True
+                        started = not started
                 if event.key == pygame.K_r:
                     colors, heights = generate_array(_len, _max)
                     finished = False
@@ -96,6 +96,8 @@ def main():
         if started:
             if switcher:
                 colors = [(255, 255, 255) for _ in range(_len)]            
+                for i in range(_len - i_iter, _len):
+                    colors[i] = (0, 255, 0)
                 colors[j_iter] = (255, 0, 0)
                 colors[j_iter + 1] = (255, 0, 0)
             else:
