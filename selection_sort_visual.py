@@ -103,7 +103,23 @@ def main():
             if heights[j_iter - 1] < heights[smallest_so_far]:
                 smallest_so_far = j_iter - 1
             if j_iter == _len:
-                colors[smallest_so_far] = (0, 0, 255)
+                win.fill((0, 0, 0))
+                _rects = generate_rects(_len, _max, heights)
+                for i in range(_len):
+                    pygame.draw.rect(win, colors[i], _rects[i])
+
+                options_label_1 = GAME_FONT.render(f"S - start, R - regenerate, Q - quit, LEFT/RIGHT slower/faster, now: {speed} FPS", 1, (255, 255, 255))
+                options_label_2 = GAME_FONT.render(f"Creator: SuperrMurlocc, UP/DOWN - more/less elements, now: {_len}", 1, (255, 255, 255))
+                win.blit(options_label_1, (20, HEIGHT + 15))
+                win.blit(options_label_2, (20, HEIGHT + 45))
+                pygame.display.update()
+                clock.tick(speed)
+
+                colors = [(255, 255, 255) for _ in range(_len)]            
+                for i in range(0, i_iter):
+                    colors[i] = (0, 255, 0)
+                colors[i_iter] = (255, 0, 255)
+                colors[smallest_so_far] = (255, 0, 255)
                 i_min = heights.index(min(heights[i_iter:]))
                 heights[i_iter], heights[i_min] = heights[i_min], heights[i_iter]
                 i_iter += 1
